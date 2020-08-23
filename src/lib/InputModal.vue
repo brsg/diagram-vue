@@ -1,18 +1,22 @@
 <template>
-  <VModal :isActive="isActive" @clickModal="cancel">
-    <div>
-      <textarea
-        class="input"
-        v-model="tmp"
-        required
-        placeholder="JSON"
-      ></textarea
-      ><br />
-      <VButton @click="ok">OK</VButton>
-      <VButton class="danger" @click="cancel">Cancel</VButton>
-    </div>
-  </VModal>
+  <v-row justify="center">
+    <v-dialog v-model="isActive" max-width="400px" @click="cancel">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Import / Export</span>
+        </v-card-title>
+        <v-card-text>
+          <v-textarea v-model="tmp" required outlined placeholder="JSON"></v-textarea>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="ok" color="primary">OK</v-btn>
+          <v-btn @click="cancel">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
+
 <script>
 export default {
   props: {

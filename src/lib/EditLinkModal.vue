@@ -1,34 +1,49 @@
 <template>
-  <VModal :isActive="isActive" @clickModal="cancel">
-    <transition name="item">
-      <div class="form" v-if="isActive">
-        <h2>Edit link</h2>
-        <label>Color:</label>
-        <VInput v-model="newLink.color" placeholder="color" /><br />
-        <label>Shape:</label>
-        <VSelect v-model="newLink.shape" placeholder="Select line shape">
-          <option value="straight">Straight line</option>
-          <option value="bezier">Bezier curve</option> </VSelect
-        ><br />
-        <label>Pattern:</label>
-        <VSelect v-model="newLink.pattern" placeholder="Select line pattern">
-          <option value="solid" selected>Solid</option>
-          <option value="dash">Dash</option>
-          <option value="dot">Dot</option> </VSelect
-        ><br />
-        <label>Arrow type:</label>
-        <VSelect v-model="newLink.arrow" placeholder="Select arrow type">
-          <option value="none">none</option>
-          <option value="src">One side(source)</option>
-          <option value="dest">One side(destination)</option>
-          <option value="both">Both side</option> </VSelect
-        ><br />
-        <VButton @click="ok">OK</VButton>
-        <VButton class="danger" @click="cancel">Cancel</VButton>
-      </div>
-    </transition>
-  </VModal>
+  <v-row justify="center">
+    <v-dialog v-model="isActive" max-width="600px" @click="cancel">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Edit Link</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field type="text" v-model="newLink.color" label="Color" outlined dense />
+          <v-select
+            v-model="newLink.shape"
+            :items="shapes"
+            item-text="name"
+            item-value="value"
+            label="Shape"
+            outlined
+            dense
+          />
+          <v-select
+            v-model="newLink.pattern"
+            :items="patterns"
+            item-text="name"
+            item-value="value"
+            label="Line Pattern"
+            outlined
+            dense
+          />
+          <v-select
+            v-model="newLink.arrow"
+            :items="arrows"
+            item-text="name"
+            item-value="value"
+            label="Arrow Type"
+            outlined
+            dense
+          />
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="ok" color="primary">OK</v-btn>
+          <v-btn @click="cancel">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
+
 <script>
 export default {
   props: {
@@ -47,6 +62,25 @@ export default {
         };
       }
     }
+  },
+  data() {
+    return {
+      shapes: [
+        { value: "straight", name: "Straight Line" },
+        { value: "bezier", name: "Bezier Curve" },
+      ],
+      patterns: [
+        { value: "solid", name: "Solid" },
+        { value: "dash", name: "Dash" },
+        { value: "dot", name: "Dot" },
+      ],
+      arrows: [
+        { value: "none", name: "None" },
+        { value: "src", name: "One Side (Dource)" },
+        { value: "dest", name: "One Side (Destination)" },
+        { value: "both", name: "Both Sides" },
+      ],
+    };
   },
   computed: {
     newLink: {

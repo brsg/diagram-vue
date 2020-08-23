@@ -1,14 +1,14 @@
 <template>
   <div id="editor">
-    <VButton v-if="!editable" @click="editable = true">Edit</VButton>
+    <v-btn v-if="!editable" @click="editable = true">Edit</v-btn>
     <span v-else>
-      <VButton @click="openModal">New Node</VButton>
-      <VButton @click="endEdit">End</VButton>
+      <v-btn @click="openModal">New Node</v-btn>
+      <v-btn @click="endEdit">End</v-btn>
     </span>
-    <VButton @click="openInputModal">Import/Export</VButton>
-    <VButton @click="downloadSVG">Download SVG</VButton>
-    <VButton @click="isAskClearDiagram = true">Clear Diagram</VButton>
-    <VButton @click="openSettingsModal">Settings</VButton>
+    <v-btn @click="openInputModal">Import/Export</v-btn>
+    <v-btn @click="downloadSVG">Download SVG</v-btn>
+    <v-btn @click="isAskClearDiagram = true">Clear Diagram</v-btn>
+    <v-btn @click="openSettingsModal">Settings</v-btn>
     <AskModal :isActive="isAskClearDiagram" @ok="clearDiagram" @cancel="cancel">
       Do you wanna clear the Diagram?
     </AskModal>

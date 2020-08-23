@@ -1,40 +1,36 @@
 <template>
-  <VModal :isActive="isActive" @clickModal="cancel">
-    <transition name="item">
-      <div class="form" v-if="isActive">
-        <VInput v-model="newNode.content.text" placeholder="name" /><br />
-        <VInput v-model="newNode.content.url" placeholder="url" /><br />
-        <VInput v-model="newNode.content.color" placeholder="color" /><br />
-        <VInput
-          type="number"
-          v-model="newNode.width"
-          placeholder="width"
-        /><br />
-        <VInput
-          type="number"
-          v-model="newNode.height"
-          placeholder="height"
-        /><br />
-        <VInput
-          type="text"
-          v-model="newNode.stroke"
-          placeholder="stroke"
-        /><br />
-        <VInput
-          type="number"
-          v-model="newNode.strokeWeight"
-          placeholder="stroke weight"
-        /><br />
-        <VSelect v-model="newNode.shape" placeholder="Select shape">
-          <option value="rectangle" selected>Rectangle</option>
-          <option value="ellipse">Ellipse</option> </VSelect
-        ><br />
-        <VButton @click="ok">OK</VButton>
-        <VButton class="danger" @click="cancel">Cancel</VButton>
-      </div>
-    </transition>
-  </VModal>
+  <v-row justify="center">
+    <v-dialog v-model="isActive" max-width="600px" @click="cancel">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Edit Node</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field type="text" v-model="newNode.content.text" label="Name" outlined dense />
+          <v-text-field type="text" v-model="newNode.content.url" label="Url" outlined dense />
+          <v-text-field type="text" v-model="newNode.content.color" label="Color" outlined dense />
+          <v-text-field type="number" v-model="newNode.width" label="Width" outlined dense />
+          <v-text-field type="number" v-model="newNode.height" label="Height" outlined dense />
+          <v-text-field type="text" v-model="newNode.stroke" label="Stroke" outlined dense />
+          <v-text-field type="number" v-model="newNode.strokeWeight" label="Stroke Weight" outlined dense />
+          <v-select
+            v-model="newNode.shape"
+            :items="shapes"
+            item-text="name"
+            item-value="value"
+            label="Select Shape"
+            outlined
+            dense />
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="ok" color="primary">OK</v-btn>
+          <v-btn @click="cancel">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
+
 <script>
 export default {
   props: {
@@ -66,7 +62,11 @@ export default {
   },
   data() {
     return {
-      newNode: this.node
+      newNode: this.node,
+      shapes: [
+        { value: "rectangle", name: "Rectangle" },
+        { value: "ellipse", name: "Elipse" },
+      ],
     };
   },
   methods: {

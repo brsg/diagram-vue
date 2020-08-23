@@ -1,18 +1,23 @@
 <template>
-  <VModal :isActive="isActive" @clickModal="cancel">
-    <transition name="item">
-      <div class="block">
-        <div class="inner-block"><slot></slot></div>
-        <VButton @click="ok">OK</VButton>
-        <VButton class="danger" @click="cancel">Cancel</VButton>
-      </div>
-    </transition>
-  </VModal>
+  <v-row justify="center">
+    <v-dialog v-model="isActive" max-width="400px" persistent @click="cancel">
+      <v-card>
+        <v-card-text>
+          <slot></slot>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="ok" color="primary">OK</v-btn>
+          <v-btn @click="cancel">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
+
 <script>
 export default {
   props: {
-    isActive: Boolean
+    isActive: Boolean,
   },
   methods: {
     ok() {

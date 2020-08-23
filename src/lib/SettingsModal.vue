@@ -1,25 +1,31 @@
 <template>
-  <VModal :isActive="isActive" @clickModal="cancel">
-    <h2>Settings</h2>
-    <h3>Field Size</h3>
-    <label>Width</label>
-    <VInput type="number" v-model="newSettings.width" />
-    <label>Height</label>
-    <VInput type="number" v-model="newSettings.height" /><br />
-    <h3>Scale</h3>
-    <VSelect v-model="newSettings.scale">
-      <option value="0.5">Small</option>
-      <option value="1" selected>Medium</option>
-      <option value="2">Large</option>
-    </VSelect>
-    <h3>Fluid</h3>
-    <VCkbox v-model="newSettings.isFluid"> Toggle fluid </VCkbox>
-    <h3>Background</h3>
-    <VCkbox v-model="newSettings.showGrid"> Show grid </VCkbox><br /><br />
-    <VButton @click="ok">OK</VButton>
-    <VButton class="danger" @click="cancel">Cancel</VButton>
-  </VModal>
+  <v-row justify="center">
+    <v-dialog v-model="isActive" max-width="600px" @click="cancel">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Settings</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field type="number" v-model="newSettings.width" label="Field Width" />
+          <v-text-field type="number" v-model="newSettings.height" label="Field Height" />
+          <v-select
+            v-model="newSettings.scale"
+            :items="scales"
+            item-value="value"
+            item-text="name"
+          />
+          <v-checkbox v-model="newSettings.isFluid" label="Fluid" />
+          <v-checkbox v-model="newSettings.showGrid" label="Show Grid" />
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="ok" color="primary">OK</v-btn>
+          <v-btn @click="cancel">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
+
 <script>
 export default {
   props: {
@@ -53,7 +59,12 @@ export default {
         width: 0,
         height: 0,
         showGrid: false
-      }
+      },
+      scales: [
+        { value: "0.5", name: "Small"},
+        { value: "1", name: "Medium" },
+        { value:"2", name: "Large" }
+      ]
     };
   },
   methods: {
